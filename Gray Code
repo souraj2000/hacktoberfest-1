@@ -1,0 +1,33 @@
+class Solution{
+    public ArrayList<String> graycode(int n){
+        ArrayList<String> list = new ArrayList<>();
+        traverse(list, "", n);
+        return list;
+    }
+    
+    void traverse(ArrayList<String> list, String binStr, int n){
+        if(binStr.length()==n) list.add(binToGrey(binStr, n));
+        else{
+            String tempStr = binStr;
+            binStr+="0";
+            traverse(list, binStr, n);
+            binStr = tempStr;
+            binStr+="1";
+            traverse(list, binStr, n);
+            binStr = tempStr;
+        }
+    }
+    
+    String binToGrey(String binStr, int n){
+        String greyStr = "";
+        for(int i = 0; i<n; i++){
+            if(i==0) greyStr+=binStr.charAt(i);
+            else{
+                int a = Character.getNumericValue(binStr.charAt(i-1));
+                int b = Character.getNumericValue(binStr.charAt(i));
+                greyStr+=(a^b);
+            }
+        }
+        return greyStr;
+    }
+}
